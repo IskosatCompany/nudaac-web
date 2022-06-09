@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/nudaac-web/static/css/main.073c9b0a.css",
+    "main.js": "/nudaac-web/static/js/main.2d6bed40.js",
+    "static/js/787.e92b19f7.chunk.js": "/nudaac-web/static/js/787.e92b19f7.chunk.js",
+    "static/media/logo.svg": "/nudaac-web/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/nudaac-web/index.html",
+    "main.073c9b0a.css.map": "/nudaac-web/static/css/main.073c9b0a.css.map",
+    "main.2d6bed40.js.map": "/nudaac-web/static/js/main.2d6bed40.js.map",
+    "787.e92b19f7.chunk.js.map": "/nudaac-web/static/js/787.e92b19f7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.2d6bed40.js"
+  ]
+}
