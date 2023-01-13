@@ -1,16 +1,15 @@
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
 import React from "react";
+import { NudaacCalendar } from "../../components/Calendar";
 import { useHomeInfo } from "../../Hooks/Home/useHomeInfo";
 
 const MainImage = styled("header")(() => ({
   display: "flex",
   flex: 1,
   height: "100vh",
-  backgroundImage: `url(${require("../../assets/uc-main-page.jpeg")})`,
+  width: "100%",
   overflow: "hidden",
   position: "relative",
-  resize: "both",
 }));
 
 const Container = styled("div")(() => ({
@@ -21,31 +20,41 @@ const Container = styled("div")(() => ({
   flexDirection: "row",
   gap: 24,
   justifyContent: "center",
+  zIndex: "20",
 }));
 
 const Body = styled("div")(() => ({
   paddingBlock: "64px 80px",
-  background: "#DEDEDE",
-  height: "300px",
+
   position: "relative",
   width: "100%",
+}));
+
+const ImageContainer = styled("div")(() => ({
+  position: "absolute",
+  zIndex: 0,
+}));
+
+const Image = styled("img")(() => ({
+  width: "100vw",
+  height: "100vh",
+  objectFit: "cover",
 }));
 
 const Home = () => {
   const { data } = useHomeInfo();
 
-  console.log(data);
-
   return (
     <>
       <MainImage>
-        <Container>
-          <Typography>HOME</Typography>
-          <Typography>HOME</Typography>
-        </Container>
+        <ImageContainer>
+          <Image src={require("../../assets/uc-main-page.jpeg")} />
+        </ImageContainer>
       </MainImage>
 
-      <Body></Body>
+      <Body>
+        <NudaacCalendar />
+      </Body>
     </>
   );
 };
