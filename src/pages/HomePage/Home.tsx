@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import React from "react";
+import { useHomeInfo } from "../../Hooks/Home/useHomeInfo";
 
 const MainImage = styled("header")(() => ({
   display: "flex",
@@ -9,6 +10,7 @@ const MainImage = styled("header")(() => ({
   backgroundImage: `url(${require("../../assets/uc-main-page.jpeg")})`,
   overflow: "hidden",
   position: "relative",
+  resize: "both",
 }));
 
 const Container = styled("div")(() => ({
@@ -30,6 +32,10 @@ const Body = styled("div")(() => ({
 }));
 
 const Home = () => {
+  const { data } = useHomeInfo();
+
+  console.log(data);
+
   return (
     <>
       <MainImage>
