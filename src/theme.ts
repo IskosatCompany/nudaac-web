@@ -115,7 +115,7 @@ export let theme = createTheme({
       grey400: "#626F71",
     },
     gradient: {
-      tealGradient: "linear-gradient(269.86deg, #389FB5 0%, #00708D 100%)",
+      tealGradient: "linear-gradient(180deg, #b29f94 0%, #603813 100%)",
     },
   },
   typography: {

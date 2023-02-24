@@ -4,13 +4,25 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SWRConfig } from "swr";
 import "./App.css";
-import CasaPage from "./pages/CasaPage/CasaPage";
-import Home from "./pages/HomePage/Home";
-import MoviesPage from "./pages/MoviesPage/MoviesPage";
-import NewsPage from "./pages/NewsPage/NewsPage";
-import NotesPage from "./pages/NotesPage/NotesPage";
+import { ActivitiesPage } from "./pages/ActivitiesPage";
+
+import { CulturePage } from "./pages/CulturePage";
+import { Home } from "./pages/HomePage";
+import { RepositoryPage } from "./pages/RepositoryPage";
+import { ResumePage } from "./pages/ResumePage";
+import { SchedulePage } from "./pages/SchedulePage";
+
 import { theme } from "./theme";
 import { fetcher } from "./utils";
+
+export enum WebRoutes {
+  HOME = "/",
+  SCHEDULE = "/schedule/",
+  RESUME = "/resumes/",
+  ACTIVITY = "/activities/",
+  CULTURE = "/culture/",
+  REPOSITORY = "/repositories/",
+}
 
 Axios.defaults.baseURL = "http://localhost:8080/api/v1";
 
@@ -38,11 +50,12 @@ function App() {
       >
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/news/" element={<NewsPage />} />
-            <Route path="/movies/" element={<MoviesPage />} />
-            <Route path="/casa/" element={<CasaPage />} />
-            <Route path="/notes/" element={<NotesPage />} />
+            <Route path={WebRoutes.HOME} element={<Home />} />
+            <Route path={WebRoutes.SCHEDULE} element={<SchedulePage />} />
+            <Route path={WebRoutes.RESUME} element={<ResumePage />} />
+            <Route path={WebRoutes.ACTIVITY} element={<ActivitiesPage />} />
+            <Route path={WebRoutes.CULTURE} element={<CulturePage />} />
+            <Route path={WebRoutes.REPOSITORY} element={<RepositoryPage />} />
           </Routes>
         </Router>
       </SWRConfig>

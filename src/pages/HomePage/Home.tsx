@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { NudaacCalendar } from "../../components/Calendar";
+import { MiniDrawer } from "../../components/Drawer";
+import { TabsValues } from "../../components/Drawer/Drawer";
 import { useHomeInfo } from "../../Hooks/Home/useHomeInfo";
 
 const MainImage = styled("header")(() => ({
@@ -25,7 +26,6 @@ const Container = styled("div")(() => ({
 
 const Body = styled("div")(() => ({
   paddingBlock: "64px 80px",
-
   position: "relative",
   width: "100%",
 }));
@@ -51,10 +51,7 @@ const Home = () => {
           <Image src={require("../../assets/uc-main-page.jpeg")} />
         </ImageContainer>
       </MainImage>
-
-      <Body>
-        <NudaacCalendar />
-      </Body>
+      <MiniDrawer selectedTab={TabsValues.REPOSITORY} />
     </>
   );
 };

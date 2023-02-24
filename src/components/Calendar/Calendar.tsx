@@ -1,9 +1,11 @@
 import moment from "moment";
+import "moment/locale/pt"; // without this line it didn't work
 import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-const localizer = momentLocalizer(moment);
+moment.locale("pt");
 
+const localizer = momentLocalizer(moment);
 interface Event {
   start: Date;
   end: Date;
@@ -12,6 +14,7 @@ interface Event {
 
 const NudaacCalendar = () => {
   const [events, setEvents] = useState<Event[]>();
+  moment.locale("pt");
 
   return (
     <div className="App">
@@ -21,6 +24,7 @@ const NudaacCalendar = () => {
         defaultView="month"
         events={events}
         style={{ height: "100vh" }}
+        culture={"pt-pt"}
       />
     </div>
   );
