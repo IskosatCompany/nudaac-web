@@ -8,7 +8,7 @@ import { ActivitiesPage } from "./pages/ActivitiesPage";
 
 import { CulturePage } from "./pages/CulturePage";
 import { Home } from "./pages/HomePage";
-import { RepositoryPage } from "./pages/RepositoryPage";
+import { RepositoryItemPage, RepositoryPage } from "./pages/RepositoryPage";
 import { ResumePage } from "./pages/ResumePage";
 import { SchedulePage } from "./pages/SchedulePage";
 
@@ -22,6 +22,7 @@ export enum WebRoutes {
   ACTIVITY = "/activities/",
   CULTURE = "/culture/",
   REPOSITORY = "/repositories/",
+  REPOSITORY_ITEM = "/repositories/:repoId",
 }
 
 Axios.defaults.baseURL = "http://localhost:8080/api/v1";
@@ -56,6 +57,10 @@ function App() {
             <Route path={WebRoutes.ACTIVITY} element={<ActivitiesPage />} />
             <Route path={WebRoutes.CULTURE} element={<CulturePage />} />
             <Route path={WebRoutes.REPOSITORY} element={<RepositoryPage />} />
+            <Route
+              path={WebRoutes.REPOSITORY_ITEM}
+              element={<RepositoryItemPage />}
+            />
           </Routes>
         </Router>
       </SWRConfig>

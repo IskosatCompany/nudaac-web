@@ -12,7 +12,8 @@ import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { WebRoutes } from "../../App";
 
-const drawerWidth = 240;
+const drawerWidth = 192;
+const minDrawerWidth = 56;
 
 export enum TabsValues {
   SCHEDULE = "schedule",
@@ -20,6 +21,32 @@ export enum TabsValues {
   ACTIVITY = "activity",
   CULTURE = "culture",
   REPOSITORY = "repository",
+}
+
+const ImageContainer = styled("div")(() => ({
+  position: "absolute",
+  display: "flex",
+  width: "100%",
+  top: 24,
+  right: 0,
+  left: 0,
+  justifyContent: "center",
+}));
+
+interface ImageInterface {
+  open: boolean;
+}
+
+const Image = styled("img")(({ open }: ImageInterface) => ({
+  width: open ? drawerWidth / 1.5 : minDrawerWidth / 1.5,
+  height: "100px",
+  objectFit: "cover",
+}));
+
+interface ListItemInterface {
+  name: string;
+  value: TabsValues;
+  isSelected: boolean;
 }
 
 const tabs = [
@@ -57,10 +84,11 @@ const openedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: "hidden",
-  background: theme.colors.gradient.tealGradient,
+  backgroundColor: "rgba(255, 255, 255, 0.9)",
   alignSelf: "center",
   justifyContent: "center",
-  borderRadius: " 0 100px 100px 0",
+  borderRadius: " 0 0 0 0",
+  margin: "0px !important",
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -69,14 +97,12 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
-  background: theme.colors.gradient.tealGradient,
+  background: theme.colors.primary.white,
   alignSelf: "center",
   justifyContent: "center",
-  borderRadius: " 0 100px 100px 0",
-  width: `calc(${theme.spacing(8)} + 16px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 16px)`,
-  },
+  borderRadius: " 0 0 0 0",
+  width: "56px",
+  backgroundColor: "rgba(255, 255, 255, 0.9)",
 });
 
 const Drawer = styled(MuiDrawer, {
@@ -94,6 +120,7 @@ const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
+  margin: "0px !important",
 }));
 
 const Menu = styled(List)(() => ({
@@ -142,53 +169,28 @@ const MiniDrawer = ({ selectedTab }: MiniDrawerProps) => {
   }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", position: "absolute" }}>
       <Drawer
         variant="permanent"
         open={open}
         onMouseEnter={handleDrawerOpen}
         onMouseLeave={handleDrawerClose}
+        style={{ margin: "0px !important " }}
       >
+        <ImageContainer>
+          <Image open={open} src={require("../../assets/logo.png")} />
+        </ImageContainer>
+
         <Menu>
           {tabs.map((item, index) => (
-            <ListItem
-              key={item.name}
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => listItemRedirect(item.value)}
-            >
-              <ListItemButton
-                sx={{
-                  margin: "8px 16px",
-                  minHeight: selectedTab === item.value ? 60 : 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                  background: selectedTab === item.value ? "" : "transparent",
-                  border: selectedTab === item.value ? "2px solid white" : "",
-                  borderRadius: "18px",
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    stroke: selectedTab === item.value ? "white" : "",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.name}
-                  sx={{
-                    opacity: open ? 1 : 0,
-                    color: selectedTab === item.value ? "white" : "",
-                    fontWeight: selectedTab === item.value ? "bold" : "normal",
-                    fontSize: selectedTab === item.value ? 48 : 16,
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
+            <MenuListItem
+              key={index.toString()}
+              item={item}
+              index={index}
+              open={open}
+              listItemRedirect={listItemRedirect}
+              selectedTab={selectedTab}
+            />
           ))}
         </Menu>
       </Drawer>
@@ -197,3 +199,75 @@ const MiniDrawer = ({ selectedTab }: MiniDrawerProps) => {
 };
 
 export default React.memo(MiniDrawer);
+
+interface MenuListItemProps {
+  item: ListItemInterface;
+  listItemRedirect: (type: TabsValues) => void;
+  selectedTab: TabsValues;
+  open: boolean;
+  index: number;
+}
+
+const MenuListItem = ({
+  item,
+  listItemRedirect,
+  selectedTab,
+  index,
+  open,
+}: MenuListItemProps) => {
+  const [hover, setHover] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setHover(true);
+  };
+
+  const handleDrawerClose = () => {
+    setHover(false);
+  };
+
+  return (
+    <ListItem
+      key={item.name}
+      disablePadding
+      sx={{ display: "block" }}
+      onClick={() => listItemRedirect(item.value)}
+      onMouseEnter={handleDrawerOpen}
+      onMouseLeave={handleDrawerClose}
+    >
+      <ListItemButton
+        sx={{
+          margin: "4px 0px",
+          minHeight: 48,
+          justifyContent: open ? "initial" : "center",
+          px: 2.5,
+          background: selectedTab === item.value ? "" : "transparent",
+          boxShadow: hover
+            ? "0px 4px 4px rgba(0, 0, 0, 0.5), 0px -1px 1px rgba(0, 0, 0, 0.5)"
+            : selectedTab === item.value
+            ? "0px 1px 1px rgba(0, 0, 0, 0.5), 0px -1px 1px rgba(255, 255, 255, 0.5)"
+            : "",
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : "auto",
+            justifyContent: "center",
+            stroke: selectedTab === item.value ? "black" : "grey",
+          }}
+        >
+          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+        </ListItemIcon>
+        <ListItemText
+          primary={item.name}
+          sx={{
+            opacity: open ? 1 : 0,
+            color: selectedTab === item.value || hover ? "black" : "grey",
+            fontWeight: selectedTab === item.value ? "bold" : "normal",
+            fontSize: selectedTab === item.value ? 48 : 16,
+          }}
+        />
+      </ListItemButton>
+    </ListItem>
+  );
+};

@@ -21,7 +21,7 @@ const CardContainer = styled("div")(() => ({
   gap: 0,
   "&:hover": {
     border: "0px",
-    transform: "scale(1.3)",
+    transform: "scale(1.1)",
     transformOrigin: "center",
     zIndex: 99,
     transition: "0.5s",
@@ -65,19 +65,23 @@ const useStyles = makeStyles({
 });
 
 export interface RepositoryItemProps {
+  id: number;
   name: string;
   description: string;
   userImage: string;
   firstImage: string;
   secondImage: string;
+  onClick: (id: string) => void;
 }
 
 const RepositoryItem = ({
+  id,
   firstImage,
   name,
   description,
   secondImage,
   userImage,
+  onClick,
 }: RepositoryItemProps) => {
   const classes = useStyles();
 
@@ -87,10 +91,15 @@ const RepositoryItem = ({
     setIsHovered(value);
   }, []);
 
+  const handleOnClick = useCallback(() => {
+    onClick(id.toString());
+  }, [id]);
+
   return (
     <CardContainer
       onMouseEnter={() => handleOnHover(true)}
       onMouseLeave={() => handleOnHover(false)}
+      onClick={handleOnClick}
     >
       <div className={classes.imageContainer}>
         <img

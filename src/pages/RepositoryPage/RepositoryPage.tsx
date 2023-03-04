@@ -1,11 +1,14 @@
 import { makeStyles } from "@mui/styles";
-import { MiniDrawer } from "../../components/Drawer";
+import { useNavigate } from "react-router-dom";
+import { WebRoutes } from "../../App";
 import { TabsValues } from "../../components/Drawer/Drawer";
+import PageContainer from "../../components/PageContainer/PageContainer";
 import { RepositoryItem } from "../../components/RepositoryItem";
 import { RepositoryItemProps } from "../../components/RepositoryItem/RepositoryItem";
 
-const movies: RepositoryItemProps[] = [
+const movies: Omit<RepositoryItemProps, "onClick">[] = [
   {
+    id: 0,
     name: "José",
     description: "Spain",
 
@@ -18,6 +21,7 @@ const movies: RepositoryItemProps[] = [
   },
 
   {
+    id: 1,
     name: "Zinchenko",
     description: "Ukraine",
 
@@ -29,7 +33,99 @@ const movies: RepositoryItemProps[] = [
       "https://plus.unsplash.com/premium_photo-1668447247252-86fb6c96523b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dWtyYWluZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
   },
   {
-    name: "Laura",
+    id: 2,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 3,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 4,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 5,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 6,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 7,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 8,
+    name: "Manel",
+    description: "Portugal",
+
+    userImage:
+      "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    firstImage:
+      "https://images.unsplash.com/photo-1677131001999-aa1291476c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    secondImage:
+      "https://images.unsplash.com/photo-1677210908027-702cb824c97a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    id: 9,
+    name: "Manel",
     description: "Portugal",
 
     userImage:
@@ -50,12 +146,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  pageContent: {
-    display: "flex",
-    marginInline: "10%",
-    marginBlock: "64px 64px",
-    flexDirection: "column",
-  },
+
   wrapper: {
     display: "flex",
     flex: 1,
@@ -66,17 +157,28 @@ const useStyles = makeStyles({
 const RepositoryPage = () => {
   const classes = useStyles();
 
+  const navigate = useNavigate();
+
+  const handleRepoClick = (itemId: string) => {
+    navigate(`${WebRoutes.REPOSITORY}${itemId} `);
+  };
+
   return (
-    <div className={classes.pageContent}>
-      <div className={classes.wrapper}>
-        <div className={classes.cardList}>
-          {movies.map((item, index) => (
-            <RepositoryItem key={index.toString()} {...item} />
-          ))}
+    <PageContainer tab={TabsValues.REPOSITORY}>
+      <>
+        <div className={classes.wrapper}>
+          <div className={classes.cardList}>
+            {movies.map((item, index) => (
+              <RepositoryItem
+                key={index.toString()}
+                {...item}
+                onClick={handleRepoClick}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <MiniDrawer selectedTab={TabsValues.REPOSITORY} />
-    </div>
+      </>
+    </PageContainer>
   );
 };
 
